@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='ja'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>golang_template</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/themes/default.css" />
+</head>
+<body>
+    <form method="GET" action="search">
+        <div>前泊用の山周辺のキャンプ場はテント場にはカウントしません</div>
+        <div>あくまで参考情報ですので、正確な登山計画は地図などで立てていただくようにお願いします</div>
+        <div>
+            <input type="radio" name="prefecture" value=北海道>北海道
+            <input type="radio" name="prefecture" value=青森県>青森県
+            <input type="radio" name="prefecture" value=岩手県>岩手県
+            <input type="radio" name="prefecture" value=秋田県>秋田県
+            <input type="radio" name="prefecture" value=山形県>山形県
+            <input type="radio" name="prefecture" value=福島県>福島県
+            <input type="radio" name="prefecture" value=栃木県>栃木県
+            <input type="radio" name="prefecture" value=茨城県>茨城県
+            <input type="radio" name="prefecture" value=群馬県>群馬県
+            <input type="radio" name="prefecture" value=新潟県>新潟県
+            <input type="radio" name="prefecture" value=長野県>長野県
+            <input type="radio" name="prefecture" value=埼玉県>埼玉県
+            <input type="radio" name="prefecture" value=山梨県>山梨県
+            <input type="radio" name="prefecture" value=神奈川県>神奈川県
+            <input type="radio" name="prefecture" value=静岡県>静岡県
+            <input type="radio" name="prefecture" value=富山県>富山県
+            <input type="radio" name="prefecture" value=石川県>石川県
+            <input type="radio" name="prefecture" value=福井県>福井県
+            <input type="radio" name="prefecture" value=滋賀県>滋賀県
+            <input type="radio" name="prefecture" value=奈良県>奈良県
+            <input type="radio" name="prefecture" value=鳥取県>鳥取県
+            <input type="radio" name="prefecture" value=徳島県>徳島県
+            <input type="radio" name="prefecture" value=愛媛県>愛媛県
+            <input type="radio" name="prefecture" value=大分県>大分県
+            <input type="radio" name="prefecture" value=宮崎県>宮崎県
+            <input type="radio" name="prefecture" value=熊本県>熊本県
+            <input type="radio" name="prefecture" value=宮崎県>宮崎県
+            <input type="radio" name="prefecture" value=鹿児島県>鹿児島県
+        </div>
+        <div>
+            <input type="radio" name="hasTentSite" value=true>テン場がある
+            <input type="radio" name="hasTentSite" value=false>テン場がない
+        </div>
+        <div>登山開始日</div>
+        <label for="dateForClimb">Choose a date</label>
+        <duet-date-picker identifier="dateForClimb" name="dateForClimb"></duet-date-picker>
+        <input type="submit" value="検索する">
+    </form>
+    <a href='/search'>トップへ戻る</a>
+    <ul>
+      {{ range . }}
+      <li>
+        <h4>{{ .Name }}</h4>
+        <div>{{ .WeatherName }}</div>
+      </li>
+      {{ end }}
+    </ul>
+</body>
+</html>

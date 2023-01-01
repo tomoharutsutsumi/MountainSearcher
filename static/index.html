@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang='ja'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>golang_template</title>
+</head>
+<body>
+    <div class="container">
+        <h1>データページ</h1>    
+    </div>
+    <a href='/'>トップへ戻る</a>
+    <h1>{{.}}</h1>
+    <ul>
+        {{ range . }}
+        <li>
+            <h4>{{ .Name }}</h4>
+            <h4>{{ .Weather }}</h4>
+        </li>
+        {{ end }}
+    </ul>
+</body>
+</html>
