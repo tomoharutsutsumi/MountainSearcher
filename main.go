@@ -49,6 +49,7 @@ func main() {
   http.HandleFunc("/", mainHandler)
   http.HandleFunc("/search", searchHandler)
   http.HandleFunc("/mail", mailHandler)
+  http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css/"))))
   http.ListenAndServe (":3000", nil)
 }
 
