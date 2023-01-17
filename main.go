@@ -3,6 +3,7 @@ package main
 import ( 
   d "mountain-searcher/database"
   m "mountain-searcher/domain"
+  mailer "mountain-searcher/mailer"
   "net/http"
   "text/template"
   "strconv"
@@ -37,9 +38,17 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
   t.Execute(w, mountains)
 }
 
+func mailHandler(w http.ResponseWriter, r *http.Request) {
+  RequestForService:= r.FormValue("requestForService")
+  fmt.Println(RequestForService)
+  mailer.Send(RequestForService)
+  http.Redirect(w, r, r.Header.Get("Referer"), 302)
+}
+
 func main() {
   http.HandleFunc("/", mainHandler)
   http.HandleFunc("/search", searchHandler)
+  http.HandleFunc("/mail", mailHandler)
   http.ListenAndServe (":3000", nil)
 }
 
