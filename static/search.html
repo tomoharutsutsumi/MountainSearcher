@@ -7,65 +7,115 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.esm.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/duet.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@duetds/date-picker@1.4.0/dist/duet/themes/default.css" />
-    <link rel="stylesheet" type="text/css" href="../css/search.css">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <form method="GET" action="search">
-        <div>前泊用の山周辺のキャンプ場はテント場にはカウントしません</div>
-        <div>あくまで参考情報ですので、正確な登山計画は地図などで立てていただくようにお願いします</div>
-        <div>
-            <input type="radio" name="prefecture" value=北海道>北海道
-            <input type="radio" name="prefecture" value=青森県>青森県
-            <input type="radio" name="prefecture" value=岩手県>岩手県
-            <input type="radio" name="prefecture" value=秋田県>秋田県
-            <input type="radio" name="prefecture" value=山形県>山形県
-            <input type="radio" name="prefecture" value=福島県>福島県
-            <input type="radio" name="prefecture" value=栃木県>栃木県
-            <input type="radio" name="prefecture" value=茨城県>茨城県
-            <input type="radio" name="prefecture" value=群馬県>群馬県
-            <input type="radio" name="prefecture" value=新潟県>新潟県
-            <input type="radio" name="prefecture" value=長野県>長野県
-            <input type="radio" name="prefecture" value=埼玉県>埼玉県
-            <input type="radio" name="prefecture" value=山梨県>山梨県
-            <input type="radio" name="prefecture" value=神奈川県>神奈川県
-            <input type="radio" name="prefecture" value=静岡県>静岡県
-            <input type="radio" name="prefecture" value=富山県>富山県
-            <input type="radio" name="prefecture" value=石川県>石川県
-            <input type="radio" name="prefecture" value=福井県>福井県
-            <input type="radio" name="prefecture" value=滋賀県>滋賀県
-            <input type="radio" name="prefecture" value=奈良県>奈良県
-            <input type="radio" name="prefecture" value=鳥取県>鳥取県
-            <input type="radio" name="prefecture" value=徳島県>徳島県
-            <input type="radio" name="prefecture" value=愛媛県>愛媛県
-            <input type="radio" name="prefecture" value=大分県>大分県
-            <input type="radio" name="prefecture" value=宮崎県>宮崎県
-            <input type="radio" name="prefecture" value=熊本県>熊本県
-            <input type="radio" name="prefecture" value=宮崎県>宮崎県
-            <input type="radio" name="prefecture" value=鹿児島県>鹿児島県
-        </div>
-        <div>
-            <input type="radio" name="hasTentSite" value=true>テン場がある
-            <input type="radio" name="hasTentSite" value=false>テン場がない
-        </div>
-        <div>登山開始日</div>
-        <label for="dateForClimb">Choose a date</label>
-        <duet-date-picker identifier="dateForClimb" name="dateForClimb"></duet-date-picker>
-        <input type="submit" value="検索する">
-    </form>
-    <a href='/search'>トップへ戻る</a>
-    <ul>
-      {{ range . }}
-      <li>
-        <h4>{{ .Name }}</h4>
-        <div>{{ .WeatherName }}</div>
-      </li>
-      {{ end }}
-    </ul>
-    <form method="POST" action="mail">
-        <textarea name="requestForService">
-
-        </textarea>
-        <input type="submit" value="送信する">
-    </form>
-</body>
+    <div class="fixed-top bg-primary text-white ps-5" style="height:40px; padding-top: 6px;">
+        mountainsearcher
+    </div>
+    <div class="container mt-5">
+        <form method="GET" action="search">
+            <small>前泊用の山周辺のキャンプ場はテント場にはカウントしません。</small>
+            <small>あくまで参考情報ですので、正確な登山計画は地図などで立てていただくようにお願いします。</small>
+            <div class="d-flex justify-content-center py-2" style="width: 85%;">
+                <div class="d-flex flex-column">
+                    <div>山の所在地</div>
+                    <div>
+                        <select name="prefecture" class="form-select">
+                            <option value=北海道>北海道</option>
+                            <option value=青森県>青森県</option>
+                            <option value=岩手県>岩手県</option>
+                            <option value=秋田県>秋田県</option>
+                            <option value=山形県>山形県</option>
+                            <option value=福島県>福島県</option>
+                            <option value=栃木県>栃木県</option>
+                            <option value=茨城県>茨城県</option>
+                            <option value=群馬県>群馬県</option>
+                            <option value=新潟県>新潟県</option>
+                            <option value=長野県>長野県</option>
+                            <option value=埼玉県>埼玉県</option>
+                            <option value=山梨県>山梨県</option>
+                            <option value=神奈川県>神奈川県</option>
+                            <option value=静岡県>静岡県</option>
+                            <option value=富山県>富山県</option>
+                            <option value=石川県>石川県</option>
+                            <option value=福井県>福井県</option>
+                            <option value=滋賀県>滋賀県</option>
+                            <option value=奈良県>奈良県</option>
+                            <option value=鳥取県>鳥取県</option>
+                            <option value=徳島県>徳島県</option>
+                            <option value=愛媛県>愛媛県</option>
+                            <option value=大分県>大分県</option>
+                            <option value=宮崎県>宮崎県</option>
+                            <option value=熊本県>熊本県</option>
+                            <option value=宮崎県>宮崎県</option>
+                            <option value=鹿児島県>鹿児島県</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center py-2" style="width: 87.5%;">
+                <div class="d-flex flex-column">
+                    <div>テント場の有無</div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="hasTentSite" id="hasTentSiteTrue" value=true>
+                        <label class="form-check-label" for="flexRadioDefaultTrue">
+                            テント場がある
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="hasTentSite" id="hasTentSiteFalse">
+                        <label class="form-check-label" for="hasTentSiteFalse">
+                            テント場がない
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center py-2">
+                <div class="d-flex flex-column">
+                    <div>登山開始日</div>
+                    <div>
+                        <duet-date-picker identifier="dateForClimb" name="dateForClimb"></duet-date-picker>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center py-2" style="width: 82.5%;">
+                <input type="submit" value="検索する" class="btn btn-primary">
+            </div>
+        </form>
+        <section class="pt-4">
+            <div class="container px-lg-5">
+                <!-- Page Features-->
+                <div class="row gx-lg-5">
+                    {{ range . }}              
+                    <div class="col-lg-6 col-xxl-4 mb-5">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                                <h2 class="fs-4 fw-bold">{{ .Name }}</h2>
+                                <p class="mb-0">{{ .WeatherName }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+        </section>
+        <form method="POST" action="mail">
+            <textarea name="requestForService">
+            </textarea>
+            <input type="submit" value="送信する">
+        </form>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+  </div>
 </html>

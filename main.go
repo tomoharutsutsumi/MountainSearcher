@@ -19,10 +19,10 @@ import (
 
 func mainHandler(w http.ResponseWriter, r *http.Request) {
 	// wd, _ := os.Getwd()
-	// mountains := d.GetMountains()
-	// t, _ := template.ParseFiles("./static/index.html")
+	mountains := []int{1, 2, 3, 4, 5}
+	t, _ := template.ParseFiles("./static/index.html")
 	// // t := template.Must(template.ParseFiles(wd + "/static/index.html"))
-	// t.Execute(w, mountains)
+	t.Execute(w, mountains)
 	// _ = t.ExecuteTemplate(w, wd + "/static/index.html", mountains)
 }
 
