@@ -6,6 +6,7 @@ import (
   "fmt"
   "io"
   "net/http"
+  "time"
 
   // "context"
 
@@ -19,7 +20,7 @@ type Mountain struct {
   HasTentSite  bool
   Latitude     float64
   Longitude    float64
-  WeatherName      string
+  WeatherName  string
 }
 
 func getWeather(m Mountain, day string) string {
@@ -54,15 +55,51 @@ func getWeather(m Mountain, day string) string {
 //{"error":true,"reason":"Parameter 'start_date' is out of allowed range from 2022-06-08 to 2023-01-10"}
 //=> 2022/12/27時点　とりあえず一週間先のdateはvalidateする=> 値オブジェクトにしてビジネスルール追加
 
-func GetMountainsWithWeather(mountains []Mountain, day string) []Mountain {
+func GetMountainsWithWeather(mountains []Mountain, day string) ([]Mountain, []string) {
   var mountainsWithWeather []Mountain
-  fmt.Println(mountains)
-  for _, m := range mountains {
-    fmt.Println("nnnnnn")
-    m.WeatherName = getWeather(m, day)
-    mountainsWithWeather = append(mountainsWithWeather, m)
+  isValid, messages := dateForClimbIsValid(day)
+  fmt.Println(isValid)
+  if isValid {
+    for _, m := range mountains {
+      m.WeatherName = getWeather(m, day)
+      mountainsWithWeather = append(mountainsWithWeather, m)
+    }
+    return mountainsWithWeather, messages
+  } else {
+    return mountainsWithWeather, messages
   }
-  return mountainsWithWeather
+}
+
+func dateForClimbIsValid(day string) (bool, []string) {
+  messages := []string{}
+  errorCount := 0
+  
+  if day == "" {
+    errorCount++
+    messages = append(messages, "登山日が入力されていません")
+    return false, messages
+  }
+  
+	layout := "2006-01-02"
+	currentTime := time.Now()
+	today, _ := time.Parse(layout, currentTime.Format(layout))
+	paramDay, _ := time.Parse(layout, day)
+
+  if paramDay.Before(today) {
+    errorCount++
+    messages = append(messages, "登山日が過去の日付となっています")
+    return false, messages
+  }
+
+  twoWeeksLater := 13
+
+  if int(paramDay.Sub(today).Hours() / 24) > twoWeeksLater {
+    errorCount++
+    messages = append(messages, "入力できる登山日は今日から2週間以内になります")
+    return false, messages
+  }
+
+  return true, messages
 }
 
 // const (

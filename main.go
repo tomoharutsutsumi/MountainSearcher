@@ -8,14 +8,9 @@ import (
   "text/template"
   "strconv"
   "fmt"
+//   "errors"
 //   "os"
 )
-
-// var tpl *template.Template
-
-// func init() {
-//     tpl = template.Must(template.ParseFiles("./static/index.html"))
-// }
 
 func mainHandler(w http.ResponseWriter, r *http.Request) {
 	// wd, _ := os.Getwd()
@@ -30,12 +25,13 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
   Prefecture := r.FormValue("prefecture")
   HasTentSite, _ := strconv.ParseBool(r.FormValue("hasTentSite"))
   DateForClimb := r.FormValue("dateForClimb")
-
-  mountains := d.SearchMountains(Prefecture, HasTentSite)
-  mountains = m.GetMountainsWithWeather(mountains, DateForClimb)
-  fmt.Println(mountains)
+  Mountains := d.SearchMountains(Prefecture, HasTentSite)
+  MountainsWithWeather, ErrorMessages := m.GetMountainsWithWeather(Mountains, DateForClimb)
+  alldata := map[string]interface{}{
+	"Errors": ErrorMessages, "Mountains": MountainsWithWeather,
+  }
   t, _ := template.ParseFiles("./static/search.html")
-  t.Execute(w, mountains)
+  t.Execute(w, alldata)
 }
 
 func mailHandler(w http.ResponseWriter, r *http.Request) {
