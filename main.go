@@ -12,15 +12,6 @@ import (
 //   "os"
 )
 
-func mainHandler(w http.ResponseWriter, r *http.Request) {
-	// wd, _ := os.Getwd()
-	mountains := []int{1, 2, 3, 4, 5}
-	t, _ := template.ParseFiles("./static/index.html")
-	// // t := template.Must(template.ParseFiles(wd + "/static/index.html"))
-	t.Execute(w, mountains)
-	// _ = t.ExecuteTemplate(w, wd + "/static/index.html", mountains)
-}
-
 func searchHandler(w http.ResponseWriter, r *http.Request) {
   Prefecture := r.FormValue("prefecture")
   HasTentSite, _ := strconv.ParseBool(r.FormValue("hasTentSite"))
@@ -42,7 +33,6 @@ func mailHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-  http.HandleFunc("/", mainHandler)
   http.HandleFunc("/search", searchHandler)
   http.HandleFunc("/mail", mailHandler)
   http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css/"))))
