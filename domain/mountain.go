@@ -41,9 +41,7 @@ func getWeather(m Mountain, day string) string {
   resp, err := client.Do(req)
   body, err := io.ReadAll(resp.Body)
   var w domain.Weather
-  fmt.Println(string(body))
-  //b := []byte(`{"latitude":45.2,"longitude":141.25,"generationtime_ms":0.28502941131591797,"utc_offset_seconds":32400,"timezone":"Asia/Tokyo","timezone_abbreviation":"JST","elevation":1681.0,"daily_units":{"time":"iso8601","weathercode":"wmo code"},"daily":{"time":["2022-12-01"],"weathercode":[73]}}`)
-  b := []byte(`{"daily":{"time":["2022-12-01"],"weathercode":[73]}}`)
+  b := []byte(body)
   if err := json.Unmarshal(b, &w); err != nil {
 		panic(err.Error())
 	}
