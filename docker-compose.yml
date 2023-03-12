@@ -9,9 +9,9 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_DATABASE: mountain_searcher
-      MYSQL_USER: example
-      MYSQL_PASSWORD: example
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       TZ: 'Asia/Tokyo'
     ports:
       - 3306:3306
