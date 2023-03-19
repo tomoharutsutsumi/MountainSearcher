@@ -24,6 +24,7 @@ services:
     build: 
       context: .
       dockerfile: ./docker/web/Dockerfile
+    env_file: .env
     tty: true
     command: go run .
     volumes:
@@ -34,6 +35,11 @@ services:
       MYSQL_HOST: mountain_searcher_DB
     networks:
       - mountain-searcher_default
+  mail:
+    image: mailhog/mailhog
+    container_name: mountain_searcher_mail
+    ports:
+      - 8025:8025
 
 volumes:
   mysql:

@@ -28,12 +28,25 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 func mailHandler(w http.ResponseWriter, r *http.Request) {
   RequestForService:= r.FormValue("requestForService")
   fmt.Println(RequestForService)
-  mailer.Send(RequestForService)
-  http.Redirect(w, r, r.Header.Get("Referer"), 302)
+  sendSuccess := mailer.Send(RequestForService)
+  ErrorMessages := []string{}
+  NoticeMessages := []string{}
+  if sendSuccess {
+	NoticeMessages = append(NoticeMessages, "送信完了しました")
+  } else {
+	ErrorMessages = append(ErrorMessages, "送信できませんでした")
+  }
+
+  alldata := map[string]interface{}{
+	"Errors": ErrorMessages,
+	"Notices": NoticeMessages,
+  }
+  t, _ := template.ParseFiles("./static/search.html")
+  t.Execute(w, alldata)
 }
 
 func main() {
-  http.HandleFunc("/search", searchHandler)
+  http.HandleFunc("/", searchHandler)
   http.HandleFunc("/mail", mailHandler)
   http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css/"))))
   http.ListenAndServe (":3000", nil)
