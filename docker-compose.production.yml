@@ -1,0 +1,10 @@
+services:
+db:
+  extends:
+    file: docker-compose.yml
+    service: db
+web:
+  extends:
+    file: docker-compose.yml
+    service: web
+  env_file: .env.production

@@ -1,0 +1,23 @@
+services:
+  db:
+    extends:
+      file: docker-compose.yml
+      service: db
+    env_file: .env.development
+  web:
+    extends:
+      file: docker-compose.yml
+      service: web
+    env_file: .env.development
+  mail:
+    extends:
+      file: docker-compose.yml
+      service: mail
+
+volumes:
+  mysql:
+    name: mountain_searcher_volume
+
+networks:
+  mountain-searcher_default:
+    external: true
