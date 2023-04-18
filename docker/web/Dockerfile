@@ -13,4 +13,6 @@ WORKDIR /mountain-searcher
 ADD  . /mountain-searcher
 
 RUN go get github.com/go-sql-driver/mysql
-
+RUN go get github.com/aws/aws-sdk-go-v2/config
+RUN go get github.com/aws/aws-sdk-go-v2/service/sesv2
+RUN go get github.com/aws/aws-sdk-go-v2/service/sesv2/types

@@ -45,7 +45,6 @@ func getWeather(m Mountain, day string) string {
   if err := json.Unmarshal(b, &w); err != nil {
 		panic(err.Error())
 	}
-  fmt.Println(w.Daily.Weathercode[0])
   defer resp.Body.Close()
   return domain.GetWeatherName(w.Daily.Weathercode[0])
 }
@@ -56,7 +55,6 @@ func getWeather(m Mountain, day string) string {
 func GetMountainsWithWeather(mountains []Mountain, day string) ([]Mountain, []string) {
   var mountainsWithWeather []Mountain
   isValid, messages := dateForClimbIsValid(day)
-  fmt.Println(isValid)
   if isValid {
     for _, m := range mountains {
       m.WeatherName = getWeather(m, day)

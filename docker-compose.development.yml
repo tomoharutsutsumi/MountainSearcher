@@ -1,18 +1,39 @@
+version: '3'
 services:
   db:
-    extends:
-      file: docker-compose.yml
-      service: db
+    build: 
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    image: mysql
+    container_name: mountain_searcher_DB
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    volumes: 
+      - ./mysql/:/docker-entrypoint-initdb.d
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - mountain-searcher_default
     env_file: .env.development
   web:
-    extends:
-      file: docker-compose.yml
-      service: web
+    build: 
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    tty: true
+    command: go run .
+    volumes:
+      - .:/go/src/projects/mountain-searcher
+    ports:
+      - "3000:3000"
+    networks:
+      - mountain-searcher_default
     env_file: .env.development
   mail:
-    extends:
-      file: docker-compose.yml
-      service: mail
+    image: mailhog/mailhog
+    container_name: mountain_searcher_mail
+    ports:
+      - 1025:1025
+      - 8025:8025
 
 volumes:
   mysql:

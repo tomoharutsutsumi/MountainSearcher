@@ -7,7 +7,7 @@ import (
   "net/http"
   "text/template"
   "strconv"
-  "fmt"
+  // "fmt"
 //   "errors"
 //   "os"
 )
@@ -21,13 +21,12 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
   alldata := map[string]interface{}{
 	"Errors": ErrorMessages, "Mountains": MountainsWithWeather,
   }
-  t, _ := template.ParseFiles("./static/search.html")
+  t, _ := template.ParseFiles("./static/index.html")
   t.Execute(w, alldata)
 }
 
 func mailHandler(w http.ResponseWriter, r *http.Request) {
   RequestForService:= r.FormValue("requestForService")
-  fmt.Println(RequestForService)
   sendSuccess := mailer.Send(RequestForService)
   ErrorMessages := []string{}
   NoticeMessages := []string{}
@@ -38,10 +37,10 @@ func mailHandler(w http.ResponseWriter, r *http.Request) {
   }
 
   alldata := map[string]interface{}{
-	"Errors": ErrorMessages,
-	"Notices": NoticeMessages,
+	  "Errors": ErrorMessages,
+	  "Notices": NoticeMessages,
   }
-  t, _ := template.ParseFiles("./static/search.html")
+  t, _ := template.ParseFiles("./static/index.html")
   t.Execute(w, alldata)
 }
 

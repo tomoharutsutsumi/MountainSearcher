@@ -34,7 +34,7 @@ services:
 
 volumes:
   mysql:
-    name: mountain_searcher_volume
+    #name: mountain_searcher_volume
 
 networks:
   mountain-searcher_default:
