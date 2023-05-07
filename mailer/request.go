@@ -68,4 +68,3 @@ func Send(message string) bool {
 	
 }
 
-// aws側はsdkを使うことにする
